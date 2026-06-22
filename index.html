@@ -3,125 +3,319 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StackOverfly</title>
+  <title>StackOverfly · CARUSO Data Catalog Redesign</title>
+  <meta name="description" content="StackOverfly entwickelt das Redesign des CARUSO Data Catalog – eine geführte Discovery-Plattform, die 433+ Connected-Car-Datenpunkte verständlich, auffindbar und transparent macht.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <header class="navbar">
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
     <div class="nav-content">
-      <div class="logo">
-        <img src="ressources/stackoverfly_logo_gross.png" alt="StackOverFLY Logo">
-      </div>
+      <a href="#home" class="logo" aria-label="StackOverfly Startseite">
+        <img src="ressources/stackoverfly_logo_gross.png" alt="StackOverfly Logo">
+      </a>
 
       <nav>
-        <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
+        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#features">Lösung</a></li>
+          <li><a href="#preview">Einblick</a></li>
+          <li><a href="#how">Ansatz</a></li>
+          <li><a href="#tech">Technik</a></li>
           <li><a href="#team">Team</a></li>
-          <li><a href="#about">Über uns</a></li>
-          <li><a href="#project">Projekt</a></li>
-          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="#contact" class="nav-cta">Kontakt</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="home">
-      <h1>Willkommen bei StackOverfly</h1>
-      <p>
-          Unsere Website befindet sich aktuell noch im Aufbau.
-          Wir arbeiten gerade an Inhalten, Design und weiteren Funktionen.
-          Schaut bald wieder vorbei, um mehr über unser Team, unsere Projekte und unsere Mission zu erfahren!
-      </p>
-      <div class="construction-box">
-        <strong>Hinweis:</strong> Diese Seite ist aktuell noch in Bearbeitung.
-      </div>
 
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <canvas id="network" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-media" id="heroMedia" aria-hidden="true" data-src=""></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <span class="eyebrow">StackOverfly × CARUSO</span>
+        <h1>Connected-Car-Daten,<br><span class="grad">endlich verständlich.</span></h1>
+        <p class="hero-sub">
+          Über <strong>433 Fahrzeug-Datenpunkte</strong> von <strong>29+ Automobilherstellern</strong> –
+          bisher eine endlose Tabelle. Wir machen daraus eine geführte Discovery-Plattform:
+          finden, verstehen und abonnieren in unter 30 Sekunden.
+        </p>
+        <div class="hero-cta">
+          <a href="#features" class="btn btn-primary">Die Lösung entdecken</a>
+          <a href="#how" class="btn btn-ghost">So funktioniert's</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num" data-count="433" data-suffix="+">0</span><span class="stat-label">Datenpunkte</span></div>
+          <div class="stat"><span class="stat-num" data-count="29" data-suffix="+">0</span><span class="stat-label">OEMs</span></div>
+          <div class="stat"><span class="stat-num" data-count="34" data-suffix="+">0</span><span class="stat-label">Marken</span></div>
+          <div class="stat"><span class="stat-num" data-count="30" data-prefix="&lt;" data-suffix="s">0</span><span class="stat-label">bis zum Treffer</span></div>
+        </div>
+      </div>
+      <a href="#problem" class="scroll-hint" aria-label="Weiter scrollen">↓</a>
     </section>
 
-    <section id="team">
-      <h2>Unser Team</h2>
-        <p class="section-intro">
-          Hinter StackOverFLY steht ein motiviertes Team aus Entwicklung, Design und Konzeption.
-          <div class="construction-box">
-        <strong>Hinweis:</strong> Diese Seite ist aktuell noch in Bearbeitung.
+    <!-- ===== PROBLEM ===== -->
+    <section id="problem" class="section">
+      <div class="container">
+        <span class="kicker">Die Ausgangslage</span>
+        <h2 class="section-title">Eine Tabelle mit 433 Zeilen<br>überfordert jeden Nutzer.</h2>
+        <p class="section-lead">
+          CARUSO betreibt eine neutrale Plattform für Connected-Car-Daten. Das Herzstück – der
+          Data&nbsp;Catalog – lag bisher als flache, alphabetisch sortierte Liste vor. In der Praxis bedeutet das:
+        </p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <div class="problem-icon">🧩</div>
+            <h3>Keine Struktur</h3>
+            <p>Keine Hierarchie, keine Themen-Gruppierung. 400+ Einträge müssen manuell durchsucht werden.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-icon">🧠</div>
+            <h3>Hohe Last</h3>
+            <p>Alle Datenpunkte erscheinen gleichzeitig und gleichwertig – kognitive Überforderung.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-icon">🔍</div>
+            <h3>Schwache Suche</h3>
+            <p>Funktioniert nur mit exakten Begriffen – ohne Synonyme, ohne Vorschläge.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-icon">❓</div>
+            <h3>Kein Kontext</h3>
+            <p>Datenpunkte sind kaum erklärt. Kein Einstieg über Domänen oder Anwendungsfälle.</p>
+          </div>
+        </div>
       </div>
-      <br>
+    </section>
+
+    <!-- ===== FEATURES / LÖSUNG ===== -->
+    <section id="features" class="section section-dark">
+      <div class="container">
+        <span class="kicker kicker-light">Unsere Lösung</span>
+        <h2 class="section-title">Vom Katalog zur geführten<br>Discovery-Plattform.</h2>
+        <p class="section-lead lead-light">
+          Statt einem einzigen tabellarischen Zugang bieten wir mehrere komplementäre Einstiegspunkte –
+          jeder Nutzer findet den Weg, der zu seinem Wissensstand und Anwendungsfall passt.
         </p>
 
-      <div class="team-grid">
-        <article class="team-card">
-          <div class="avatar">JF</div>
-          <h3>Jakob Feuerstein</h3>
-          <p>Rolle / Schwerpunkt</p>
-        </article>
-
-        <article class="team-card">
-          <div class="avatar">HC</div>
-          <h3>Hevin Coskun</h3>
-          <p>Rolle / Schwerpunkt</p>
-        </article>
-
-        <article class="team-card">
-          <div class="avatar">CE</div>
-          <h3>Christian Eisele</h3>
-          <p>Rolle / Schwerpunkt</p>
-        </article>
-
-        <article class="team-card">
-          <div class="avatar">MMV</div>
-          <h3>Matias Mas Viehl</h3>
-          <p>Rolle / Schwerpunkt</p>
-        </article>
-
-        <article class="team-card">
-          <div class="avatar">SÖ</div>
-          <h3>Sidal Özdurmus</h3>
-          <p>Designer</p>
-        </article>
-
-        <article class="team-card">
-          <div class="avatar">JFF</div>
-          <h3>Johanna Frieda Feix</h3>
-          <p>Designer</p>
-        </article>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-badge">KI</div>
+            <h3>Ask-CARUSO</h3>
+            <p>Kein exakter Treffer? Die KI-gestützte semantische Suche findet aus „how much fuel“ verwandte Datenpunkte – mit Erklärung, warum.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-badge">3D</div>
+            <h3>3D-Fahrzeug</h3>
+            <p>Browse nach Fahrzeugbereich: Eine Zone am 3D-Modell wählen (Powertrain, Chassis, Battery) filtert den Katalog sofort.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-badge">⌥</div>
+            <h3>Beziehungsgraph</h3>
+            <p>Ein kraftbasierter Graph zeigt, welche Signale zusammengehören – berechnet über gewichtete Cosine-Similarity.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-badge">📦</div>
+            <h3>OEM-Pakete</h3>
+            <p>Vorgebündelte, markenspezifische Datenpakete. Ein Klick fügt das ganze Paket zur Request-Liste hinzu.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-badge">🎯</div>
+            <h3>Use-Case-Einstieg</h3>
+            <p>Chips wie Fleet Management, Insurance oder Roadside Assistance filtern auf die relevanten Daten – ohne Fachbegriffe.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-badge">🛒</div>
+            <h3>Request-Liste &amp; Teams</h3>
+            <p>Ausgewählte Datenpunkte sammeln, als Abo-Anfrage senden und im Team über geteilte Group Carts zusammenstellen.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="about">
-      <h2>Über uns</h2>
-       <p>In Kürze mehr</p>
-        <div class="construction-box">
-          <strong>Hinweis:</strong> Dieser Bereich ist aktuell noch in Bearbeitung.
-        </div>
-    </section>
-
-    <section id="project">
-      <h2>Unser Projekt</h2>
-        <p>In Kürze mehr</p>
-         <div class="construction-box">
-          <strong>Hinweis:</strong> Dieser Bereich ist aktuell noch in Bearbeitung.
-        </div>
-    </section>
-
-    <section id="contact">
-      <h2>Kontakt</h2>
-        <p>
-          <strong>E-Mail:</strong> <a href="mailto:StackOverFly@web.de"> StackOverFly@web.de</a><br>
-
-
+    <!-- ===== PRODUCT PREVIEW ===== -->
+    <section id="preview" class="section section-soft">
+      <div class="container">
+        <span class="kicker">Einblick in den Prototyp</span>
+        <h2 class="section-title">So sieht der Data Catalog aus.</h2>
+        <p class="section-lead">
+          Eine permanent sichtbare Datentabelle, drei Explore-Einstiege und eine KI-Suche, die auch
+          umgangssprachliche Fragen versteht. Hier ein nachgebauter Ausschnitt der echten Oberfläche.
         </p>
-       <p>In Kürze mehr</p>
-       <div class="construction-box">
-          <strong>Hinweis:</strong> Dieser Bereich ist aktuell noch in Bearbeitung.
+
+        <div class="app-window">
+          <div class="app-bar">
+            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="app-url">catalog.caruso-dataplace.com</span>
+          </div>
+
+          <div class="app-body">
+            <!-- Search + Ask-CARUSO -->
+            <div class="app-search">
+              <span class="app-search-ico">🔎</span>
+              <span class="app-search-q">how much fuel</span>
+              <span class="app-search-btn">Suchen</span>
+            </div>
+
+            <div class="ask-banner">
+              <div class="ask-head">
+                <span class="ask-badge">CARUSO&nbsp;AI</span>
+                <span>Kein exakter Treffer für <strong>„how much fuel“</strong> – 3 verwandte Datenpunkte gefunden</span>
+              </div>
+              <div class="ask-cards">
+                <div class="ask-card">
+                  <h4>Fuel Level</h4>
+                  <p>Electronics · Fleet Management</p>
+                  <div class="ask-actions"><span class="chip-add">+ Add</span><span class="chip-view">View</span></div>
+                </div>
+                <div class="ask-card">
+                  <h4>Fuel Remaining</h4>
+                  <p>Electronics · Fleet Management</p>
+                  <div class="ask-actions"><span class="chip-add">+ Add</span><span class="chip-view">View</span></div>
+                </div>
+                <div class="ask-card">
+                  <h4>Indicator Light – Low Fuel</h4>
+                  <p>Safety · Diagnostics</p>
+                  <div class="ask-actions"><span class="chip-add">+ Add</span><span class="chip-view">View</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Use-case chips -->
+            <div class="uc-row">
+              <span class="uc-chip is-active">Fleet Management</span>
+              <span class="uc-chip">Insurance</span>
+              <span class="uc-chip">Workshop &amp; Repair</span>
+              <span class="uc-chip">Roadside Assistance</span>
+              <span class="uc-chip">Risk Management</span>
+            </div>
+
+            <!-- Explore tabs -->
+            <div class="explore-tabs">
+              <span class="exp-tab is-active">🚗 3D Vehicle</span>
+              <span class="exp-tab">⌥ Graph</span>
+              <span class="exp-tab">📦 OEM Packages</span>
+            </div>
+
+            <!-- Data table -->
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Datenpunkt</th><th>Kategorie</th><th>Typ</th><th>Verfügbarkeit</th><th></th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Total Mileage</td><td>Powertrain</td><td>Measurement</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Fuel Level</td><td>Electronics</td><td>Measurement</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Battery State of Charge</td><td>Battery</td><td>Status</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Tire Pressure (Front&nbsp;Left)</td><td>Chassis</td><td>Sensor</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Indicator Light – Low Fuel</td><td>Safety</td><td>Event</td><td><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-foot">433+ Datenpunkte · gefiltert über Tagging-Taxonomie (Topic, Category, Use Case, Data Type, Value Type)</p>
+          </div>
         </div>
+      </div>
     </section>
+
+    <!-- ===== HOW / ANSATZ ===== -->
+    <section id="how" class="section">
+      <div class="container">
+        <span class="kicker">Der Mehrwert</span>
+        <h2 class="section-title">Drei Lücken, die wir schließen.</h2>
+        <div class="goal-grid">
+          <div class="goal-card">
+            <span class="goal-step">01</span>
+            <h3>Verstehen</h3>
+            <p>Jeder Datenpunkt wird durch Kontext, Beispielwerte und Use Cases erklärt – auch ohne Fachvorwissen.</p>
+          </div>
+          <div class="goal-card">
+            <span class="goal-step">02</span>
+            <h3>Finden</h3>
+            <p>Synonym-erweiterte Suche und KI-Grounding liefern relevante Treffer in unter 30 Sekunden.</p>
+          </div>
+          <div class="goal-card">
+            <span class="goal-step">03</span>
+            <h3>Kennenlernen</h3>
+            <p>Transparente OEM-Verfügbarkeit (B2B/B2C) und 34+ Marken auf einen Blick erkennbar.</p>
+          </div>
+        </div>
+
+        <div class="metric-band">
+          <div class="metric"><strong>&lt; 30s</strong><span>bis zur Zielinformation</span></div>
+          <div class="metric"><strong>≥ 80%</strong><span>verstehen jeden Datenpunkt</span></div>
+          <div class="metric"><strong>≥ 40%</strong><span>weniger Interaktionen</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TECH ===== -->
+    <section id="tech" class="section section-soft">
+      <div class="container">
+        <span class="kicker">Unter der Haube</span>
+        <h2 class="section-title">Daten- statt codegetrieben.</h2>
+        <p class="section-lead">
+          Neue Datenpunkte, Hersteller oder Pakete brauchen keinen Umbau – sie werden importiert und über die
+          Tagging-Taxonomie automatisch in Suche, Filter, Graph und 3D-Ansicht integriert.
+        </p>
+        <div class="tech-grid">
+          <div class="tech-item"><h4>Frontend</h4><p>React 19 · Vite · React Router · react-force-graph · three.js</p></div>
+          <div class="tech-item"><h4>Backend</h4><p>Spring Boot 3.5 · REST-API · Java 21</p></div>
+          <div class="tech-item"><h4>Persistenz</h4><p>PostgreSQL · JPA / Hibernate · H2 (Tests)</p></div>
+          <div class="tech-item"><h4>KI / Ask-CARUSO</h4><p>Ollama (llama3) · deterministisches Keyword-Ranking als Fallback</p></div>
+          <div class="tech-item"><h4>Auth</h4><p>Supabase · JWT-Verifikation</p></div>
+          <div class="tech-item"><h4>Deployment</h4><p>Node/Express · Cloud-ready (z. B. Railway)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEAM ===== -->
+    <section id="team" class="section">
+      <div class="container">
+        <span class="kicker">Hinter dem Projekt</span>
+        <h2 class="section-title">Team StackOverfly</h2>
+        <p class="section-lead">Ein motiviertes Team aus Entwicklung, Konzeption und Design.</p>
+        <div class="team-grid">
+          <article class="team-card"><div class="avatar">CE</div><h3>Christian Eisele</h3><p>Development</p></article>
+          <article class="team-card"><div class="avatar">HC</div><h3>Hevin Coskun</h3><p>Development</p></article>
+          <article class="team-card"><div class="avatar">JF</div><h3>Jakob Feuerstein</h3><p>Development</p></article>
+          <article class="team-card"><div class="avatar">MMV</div><h3>Matias Mas Viehl</h3><p>Development</p></article>
+          <article class="team-card"><div class="avatar">SÖ</div><h3>Sidal Özdurmus</h3><p>Design</p></article>
+          <article class="team-card"><div class="avatar">JFF</div><h3>Johanna Frieda Feix</h3><p>Design</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT / CTA ===== -->
+    <section id="contact" class="section section-cta">
+      <div class="container cta-inner">
+        <h2 class="section-title">Lust auf einen Blick in den Prototyp?</h2>
+        <p class="section-lead lead-light">Wir zeigen gern, wie aus 433 Zeilen eine intuitive Discovery-Plattform wird.</p>
+        <a href="mailto:StackOverFly@web.de" class="btn btn-primary btn-lg">StackOverFly@web.de</a>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
-    <p>&copy; 2026 StackOverFLY. All rights reserved.</p>
+    <div class="container footer-inner">
+      <img src="ressources/stackoverfly_logo_gross.png" alt="StackOverfly Logo" class="footer-logo">
+      <p>&copy; 2026 StackOverfly · CARUSO Data Catalog Redesign · All rights reserved.</p>
+    </div>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>
