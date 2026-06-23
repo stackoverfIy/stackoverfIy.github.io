@@ -1,41 +1,48 @@
-// Lässt die "Kästchen" (construction-box) der Maus folgen.
-// Jede Box neigt sich leicht in Richtung des Mauszeigers (3D-Tilt-Effekt).
+// Parallax-Effekt: Alle Kästchen verschieben sich gleichzeitig in Richtung
+// der Mausbewegung. Je nach Tiefe (depth) bewegt sich jede Box unterschiedlich
+// stark, wodurch ein schwebender, mehrschichtiger Eindruck entsteht.
 
 document.addEventListener('DOMContentLoaded', () => {
-  const boxes = document.querySelectorAll('.construction-box, .team-card');
+  const boxes = Array.from(
+    document.querySelectorAll('.construction-box, .team-card')
+  );
 
-  // Wie stark sich die Box maximal neigen darf (in Grad).
-  const MAX_TILT = 12;
+  // Maximale Verschiebung der "tiefsten" Box in Pixeln.
+  const MAX_SHIFT = 35;
+
+  // Jeder Box eine eigene Tiefe zuweisen (0.4 .. 1.0), damit sie sich
+  // unterschiedlich stark mitbewegen -> Ebenen-/Parallax-Effekt.
+  boxes.forEach((box, index) => {
+    const depth = 0.4 + ((index % 5) / 5) * 0.6;
+    box.dataset.depth = depth.toFixed(2);
+  });
+
+  // Aktuelle und Ziel-Position für eine weiche, nachlaufende Bewegung.
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
 
   document.addEventListener('mousemove', (event) => {
-    boxes.forEach((box) => {
-      const rect = box.getBoundingClientRect();
-
-      // Mittelpunkt der Box.
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Abstand der Maus zum Mittelpunkt, normiert auf -1 .. 1.
-      const deltaX = (event.clientX - centerX) / (rect.width / 2);
-      const deltaY = (event.clientY - centerY) / (rect.height / 2);
-
-      // Begrenzen, damit weit entfernte Boxen nicht extrem kippen.
-      const clampedX = Math.max(-1, Math.min(1, deltaX));
-      const clampedY = Math.max(-1, Math.min(1, deltaY));
-
-      // Neigung: nach oben/unten (X-Achse) und links/rechts (Y-Achse).
-      const rotateX = -clampedY * MAX_TILT;
-      const rotateY = clampedX * MAX_TILT;
-
-      box.style.transform =
-        `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
+    // Mausposition relativ zur Bildschirmmitte, normiert auf -1 .. 1.
+    targetX = (event.clientX / window.innerWidth - 0.5) * 2;
+    targetY = (event.clientY / window.innerHeight - 0.5) * 2;
   });
 
-  // Beim Verlassen des Fensters die Boxen zurücksetzen.
-  document.addEventListener('mouseleave', () => {
+  // Animationsschleife: aktuelle Position sanft an die Zielposition annähern.
+  function animate() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+
     boxes.forEach((box) => {
-      box.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+      const depth = parseFloat(box.dataset.depth);
+      const shiftX = currentX * MAX_SHIFT * depth;
+      const shiftY = currentY * MAX_SHIFT * depth;
+      box.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
     });
-  });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 });

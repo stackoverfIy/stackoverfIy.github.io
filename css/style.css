@@ -97,8 +97,6 @@ section {
   border-left: 4px solid #d0e3e5;
   background: #eef6f7;
   border-radius: 10px;
-  transition: transform 0.15s ease-out;
-  transform-style: preserve-3d;
   will-change: transform;
 }
 
@@ -154,7 +152,8 @@ section {
   border-radius: 14px;
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  will-change: transform;
 }
 
 .team-card:hover {
