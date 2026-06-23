@@ -136,12 +136,6 @@
       const MAX_SHIFT = 22;
       const MAX_TILT = 6;
 
-      // Jeder Box eine eigene Tiefe (0.5 .. 1.0) -> Ebenen-/Parallax-Effekt.
-      boxes.forEach((box, index) => {
-        const depth = 0.5 + ((index % 5) / 5) * 0.5;
-        box.dataset.depth = depth.toFixed(2);
-      });
-
       // Ziel- und Ist-Position für eine weiche, nachlaufende Bewegung.
       let targetX = 0;
       let targetY = 0;
@@ -160,17 +154,13 @@
         currentX += (targetX - currentX) * 0.06;
         currentY += (targetY - currentY) * 0.06;
 
+        // Alle Boxen bewegen sich gleich und gleichzeitig.
+        const shiftX = currentX * MAX_SHIFT;
+        const shiftY = currentY * MAX_SHIFT;
+        const rotateY = currentX * MAX_TILT;
+        const rotateX = -currentY * MAX_TILT;
+
         boxes.forEach((box) => {
-          const depth = parseFloat(box.dataset.depth);
-
-          // Verschiebung MIT der Maus.
-          const shiftX = currentX * MAX_SHIFT * depth;
-          const shiftY = currentY * MAX_SHIFT * depth;
-
-          // Leichte 3D-Neigung in Richtung Maus.
-          const rotateY = currentX * MAX_TILT * depth;
-          const rotateX = -currentY * MAX_TILT * depth;
-
           box.style.transform =
             `perspective(800px) translate(${shiftX}px, ${shiftY}px) ` +
             `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
