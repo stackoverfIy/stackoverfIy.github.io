@@ -2,7 +2,7 @@
 // Jede Box neigt sich leicht in Richtung des Mauszeigers (3D-Tilt-Effekt).
 
 document.addEventListener('DOMContentLoaded', () => {
-  const boxes = document.querySelectorAll('.construction-box');
+  const boxes = document.querySelectorAll('.construction-box, .team-card');
 
   // Wie stark sich die Box maximal neigen darf (in Grad).
   const MAX_TILT = 12;
