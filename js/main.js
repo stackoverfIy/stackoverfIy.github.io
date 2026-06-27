@@ -2,9 +2,28 @@
 (function () {
   'use strict';
 
-  /* ---------- Navbar shadow on scroll ---------- */
+  /* ---------- Navbar shadow · Scroll-Progress · Scroll-Spy ---------- */
   const navbar = document.getElementById('navbar');
-  const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 20);
+  const progress = document.getElementById('scrollProgress');
+  const spyTargets = Array.from(document.querySelectorAll('#navLinks a[href^="#"]'))
+    .map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) }))
+    .filter(o => o.sec);
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 20);
+
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    }
+
+    let current = null;
+    for (const o of spyTargets) {
+      if (o.sec.getBoundingClientRect().top <= 120) current = o;
+    }
+    spyTargets.forEach(o => o.a.classList.toggle('active', o === current));
+  };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -21,7 +40,7 @@
 
   /* ---------- Scroll reveal ---------- */
   const revealTargets = document.querySelectorAll(
-    '.problem-card, .feature-card, .goal-card, .tech-item, .team-card, .metric-band, .section-title, .section-lead'
+    '.problem-card, .feature-card, .goal-card, .tech-item, .team-card, .section-title, .section-lead'
   );
   revealTargets.forEach(el => el.classList.add('reveal'));
   const io = new IntersectionObserver((entries) => {
@@ -60,7 +79,7 @@
   if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const ctx = canvas.getContext('2d');
     let w, h, dpr, nodes = [], raf;
-    const COUNT = () => Math.min(90, Math.floor(window.innerWidth / 16));
+    const COUNT = () => Math.min(80, Math.floor(window.innerWidth / 18));
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -73,7 +92,7 @@
       nodes = Array.from({ length: COUNT() }, () => ({
         x: Math.random() * w, y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.8 + 0.8
+        r: Math.random() * 2.6 + 1.4
       }));
     };
 
@@ -86,7 +105,7 @@
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      const maxDist = 130;
+      const maxDist = 165;
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.x += n.vx; n.y += n.vy;
@@ -100,22 +119,22 @@
           const dist = Math.hypot(dx, dy);
           if (dist < maxDist) {
             const a = (1 - dist / maxDist) * 0.5;
-            ctx.strokeStyle = `rgba(72, 201, 176, ${a})`;
-            ctx.lineWidth = 0.7;
+            ctx.strokeStyle = `rgba(47, 212, 174, ${a})`;
+            ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); ctx.stroke();
           }
         }
         // mouse glow link
         const mdx = n.x - mouse.x, mdy = n.y - mouse.y;
         const mdist = Math.hypot(mdx, mdy);
-        if (mdist < 170) {
-          ctx.strokeStyle = `rgba(110, 231, 183, ${(1 - mdist / 170) * 0.7})`;
-          ctx.lineWidth = 0.9;
+        if (mdist < 210) {
+          ctx.strokeStyle = `rgba(127, 212, 194, ${(1 - mdist / 210) * 0.7})`;
+          ctx.lineWidth = 1.2;
           ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
         }
         // node
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(127, 216, 232, 0.85)'; ctx.fill();
+        ctx.fillStyle = 'rgba(127, 212, 194, 0.85)'; ctx.fill();
       }
       raf = requestAnimationFrame(draw);
     };
@@ -134,5 +153,69 @@
       img.onload = () => { heroMedia.style.backgroundImage = `url(${src})`; heroMedia.classList.add('loaded'); };
       img.src = src;
     }
+  }
+
+  /* ---------- Feature-Cards: Flip → Prototyp-Screenshot auf der Rückseite ---------- */
+  const featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach(card => {
+    const shot = card.dataset.shot || '';
+    const title = (card.dataset.title || 'Feature').replace(/&amp;/g, '&');
+    const stage = card.querySelector('.feature-shot');
+
+    // Rückseite befüllen: Screenshot laden, bei Fehlen → Platzhalter mit Ablagepfad
+    if (stage) {
+      const badge = card.querySelector('.feature-badge svg');
+      const icon = badge ? badge.outerHTML : '';
+      const img = new Image();
+      img.alt = 'Prototyp-Ansicht: ' + title;
+      img.onload = () => { stage.innerHTML = ''; stage.appendChild(img); };
+      img.onerror = () => {
+        stage.innerHTML = `<div class="ph">
+            <span class="ph-ico">${icon}</span>
+            <strong>Screenshot folgt</strong>
+            <small>Lege die Datei als <code>${shot}</code> ab – sie erscheint dann automatisch hier.</small>
+          </div>`;
+      };
+      img.src = shot;
+    }
+
+    const flip = () => {
+      const flipped = card.classList.toggle('flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+      if (e.key === 'Escape' && card.classList.contains('flipped')) { card.classList.remove('flipped'); card.setAttribute('aria-pressed', 'false'); }
+    });
+  });
+
+  /* ---------- Karten "schauen" zur Maus — gruppenweit (wie caruso-dataplace.com) ---------- */
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (finePointer && !reduceMotion) {
+    const MAX = 12;   // max. Neigung in Grad
+    const REF = 420;  // Referenzdistanz (px) für volle Neigung
+    const clamp = (v) => Math.max(-1, Math.min(1, v));
+    const groups = document.querySelectorAll('.problem-grid, .goal-grid, .tech-grid, .team-grid, .feature-grid');
+    groups.forEach(group => {
+      const cards = group.querySelectorAll('.problem-card, .goal-card, .tech-item, .team-card, .feature-card');
+      // Sobald die Maus über dem Karten-Bereich ist, richten sich ALLE Karten der Gruppe zur Maus aus
+      group.addEventListener('pointermove', (e) => {
+        cards.forEach(card => {
+          const r = card.getBoundingClientRect();
+          const ox = clamp((e.clientX - (r.left + r.width / 2)) / REF);   // Maus links/rechts der Kartenmitte
+          const oy = clamp((e.clientY - (r.top + r.height / 2)) / REF);   // Maus über/unter der Kartenmitte
+          card.style.transition = 'transform .18s ease-out';
+          card.style.transform = `perspective(800px) rotateX(${(-oy * MAX).toFixed(2)}deg) rotateY(${(ox * MAX).toFixed(2)}deg) scale(1.02)`;
+        });
+      });
+      group.addEventListener('pointerleave', () => {
+        cards.forEach(card => {
+          card.style.transition = 'transform .5s cubic-bezier(.4,0,.2,1)';
+          card.style.transform = '';
+        });
+      });
+    });
   }
 })();

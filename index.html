@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StackOverfly · CARUSO Data Catalog Redesign</title>
   <meta name="description" content="StackOverfly entwickelt das Redesign des CARUSO Data Catalog – eine geführte Discovery-Plattform, die 433+ Connected-Car-Datenpunkte verständlich, auffindbar und transparent macht.">
+  <meta name="author" content="Team StackOverfly">
+  <meta name="theme-color" content="#08261F">
+  <link rel="icon" type="image/svg+xml" href="ressources/favicon.svg">
+  <link rel="apple-touch-icon" href="ressources/favicon.svg">
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="StackOverfly · CARUSO Data Catalog – neu gedacht">
+  <meta property="og:description" content="Aus 433 Connected-Car-Datenpunkten wird eine geführte Discovery-Plattform: finden, verstehen und abonnieren in unter 30 Sekunden.">
+  <meta property="og:url" content="https://www.stackoverfly.de/">
+  <meta property="og:image" content="https://www.stackoverfly.de/ressources/stackoverfly_logo_gross.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="StackOverfly · CARUSO Data Catalog – neu gedacht">
+  <meta name="twitter:description" content="Aus 433 Connected-Car-Datenpunkten wird eine geführte Discovery-Plattform.">
+  <meta name="twitter:image" content="https://www.stackoverfly.de/ressources/stackoverfly_logo_gross.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- ===== NAVBAR ===== -->
   <header class="navbar" id="navbar">
@@ -42,6 +57,7 @@
     <section id="home" class="hero">
       <canvas id="network" class="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-media" id="heroMedia" aria-hidden="true" data-src=""></div>
+      <div class="hero-bubbles" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
       <div class="hero-overlay"></div>
       <div class="hero-inner">
         <span class="eyebrow">StackOverfly × CARUSO</span>
@@ -52,7 +68,7 @@
           finden, verstehen und abonnieren in unter 30 Sekunden.
         </p>
         <div class="hero-cta">
-          <a href="#features" class="btn btn-primary">Die Lösung entdecken</a>
+          <a href="#features" class="btn btn-primary">Die Lösung entdecken<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a href="#how" class="btn btn-ghost">So funktioniert's</a>
         </div>
 
@@ -63,38 +79,63 @@
           <div class="stat"><span class="stat-num" data-count="30" data-prefix="&lt;" data-suffix="s">0</span><span class="stat-label">bis zum Treffer</span></div>
         </div>
       </div>
-      <a href="#problem" class="scroll-hint" aria-label="Weiter scrollen">↓</a>
+      <a href="#problem" class="scroll-hint" aria-label="Weiter scrollen"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+    </section>
+
+    <!-- ===== CAPABILITY STRIP (CARUSO-Plattform-Features) ===== -->
+    <section class="cap-strip" aria-label="Stärken der CARUSO-Datenbasis">
+      <div class="container">
+        <span class="kicker">Auf der CARUSO-Datenbasis</span>
+        <div class="cap-grid">
+          <div class="cap">
+            <span class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <div><strong>&gt; 90 %</strong><span>Connected-Car-Abdeckung in Europa</span></div>
+          </div>
+          <div class="cap">
+            <span class="cap-ico"><svg viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6"/></svg></span>
+            <div><strong>Eine API</strong><span>Harmonisierte, standardisierte Daten</span></div>
+          </div>
+          <div class="cap">
+            <span class="cap-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <div><strong>VIN-basiert &amp; DSGVO</strong><span>Lieferung pro Fahrzeug, datenschutzkonform</span></div>
+          </div>
+          <div class="cap">
+            <span class="cap-ico"><svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></span>
+            <div><strong>Developer-first</strong><span>Saubere Endpoints, schnelle Integration</span></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== PROBLEM ===== -->
     <section id="problem" class="section">
       <div class="container">
         <span class="kicker">Die Ausgangslage</span>
-        <h2 class="section-title">Eine Tabelle mit 433 Zeilen<br>überfordert jeden Nutzer.</h2>
+        <h2 class="section-title">433 Datenpunkte,<br>bisher als flache Liste.</h2>
         <p class="section-lead">
           CARUSO betreibt eine neutrale Plattform für Connected-Car-Daten. Das Herzstück – der
-          Data&nbsp;Catalog – lag bisher als flache, alphabetisch sortierte Liste vor. In der Praxis bedeutet das:
+          Data&nbsp;Catalog – lag als alphabetisch sortierte Liste vor. Vier Punkte hat CARUSO dabei selbst benannt:
         </p>
         <div class="problem-grid">
           <div class="problem-card">
-            <div class="problem-icon">🧩</div>
-            <h3>Keine Struktur</h3>
-            <p>Keine Hierarchie, keine Themen-Gruppierung. 400+ Einträge müssen manuell durchsucht werden.</p>
+            <div class="problem-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
+            <h3>Flache Struktur</h3>
+            <p>Eine alphabetische Liste ohne Hierarchie oder Themen-Gruppierung – über 400 Einträge nebeneinander.</p>
           </div>
           <div class="problem-card">
-            <div class="problem-icon">🧠</div>
-            <h3>Hohe Last</h3>
-            <p>Alle Datenpunkte erscheinen gleichzeitig und gleichwertig – kognitive Überforderung.</p>
+            <div class="problem-icon"><svg viewBox="0 0 24 24"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div>
+            <h3>Hohe Informationsdichte</h3>
+            <p>Alle Datenpunkte erscheinen gleichzeitig und gleichwertig – ohne Gewichtung.</p>
           </div>
           <div class="problem-card">
-            <div class="problem-icon">🔍</div>
-            <h3>Schwache Suche</h3>
-            <p>Funktioniert nur mit exakten Begriffen – ohne Synonyme, ohne Vorschläge.</p>
+            <div class="problem-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+            <h3>Suche mit Grenzen</h3>
+            <p>Treffer entstehen nur bei exakten Begriffen – ohne Synonyme oder Vorschläge.</p>
           </div>
           <div class="problem-card">
-            <div class="problem-icon">❓</div>
-            <h3>Kein Kontext</h3>
-            <p>Datenpunkte sind kaum erklärt. Kein Einstieg über Domänen oder Anwendungsfälle.</p>
+            <div class="problem-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+            <h3>Wenig Kontext</h3>
+            <p>Zu den Datenpunkten gibt es kaum Erklärung – und keinen Einstieg über Domänen oder Anwendungsfälle.</p>
           </div>
         </div>
       </div>
@@ -111,35 +152,89 @@
         </p>
 
         <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-badge">KI</div>
-            <h3>Ask-CARUSO</h3>
-            <p>Kein exakter Treffer? Die KI-gestützte semantische Suche findet aus „how much fuel“ verwandte Datenpunkte – mit Erklärung, warum.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/use-case.png" data-title="Use-Case-Einstieg" aria-label="Use-Case-Einstieg – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                <h3>Use-Case-Einstieg</h3>
+                <p>Der Einstieg über Anwendungsfälle: Chips wie Fleet Management, Insurance oder Roadside Assistance zeigen direkt die passenden Daten – ohne Fachbegriffe.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
-          <article class="feature-card">
-            <div class="feature-badge">3D</div>
-            <h3>3D-Fahrzeug</h3>
-            <p>Browse nach Fahrzeugbereich: Eine Zone am 3D-Modell wählen (Powertrain, Chassis, Battery) filtert den Katalog sofort.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/ask-caruso.png" data-title="Ask-CARUSO" aria-label="Ask-CARUSO – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><path d="M9.94 5.33 12 1l2.06 4.33L18.5 7l-4.44 1.67L12 13l-2.06-4.33L5.5 7z"/><path d="M5 14l.9 2.1L8 17l-2.1.9L5 20l-.9-2.1L2 17l2.1-.9z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/></svg></div>
+                <h3>Ask-CARUSO</h3>
+                <p>Kein exakter Treffer? Die KI-gestützte semantische Suche findet aus „how much fuel“ verwandte Datenpunkte – mit Erklärung, warum.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
-          <article class="feature-card">
-            <div class="feature-badge">⌥</div>
-            <h3>Beziehungsgraph</h3>
-            <p>Ein kraftbasierter Graph zeigt, welche Signale zusammengehören – berechnet über gewichtete Cosine-Similarity.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/3d-fahrzeug.png" data-title="3D-Fahrzeug" aria-label="3D-Fahrzeug – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div>
+                <h3>3D-Fahrzeug</h3>
+                <p>Browse nach Fahrzeugbereich: Eine Zone am 3D-Modell wählen (Powertrain, Chassis, Battery) filtert den Katalog sofort.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
-          <article class="feature-card">
-            <div class="feature-badge">📦</div>
-            <h3>OEM-Pakete</h3>
-            <p>Vorgebündelte, markenspezifische Datenpakete. Ein Klick fügt das ganze Paket zur Request-Liste hinzu.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/beziehungsgraph.png" data-title="Beziehungsgraph" aria-label="Beziehungsgraph – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+                <h3>Beziehungsgraph</h3>
+                <p>Ein kraftbasierter Graph zeigt, welche Signale zusammengehören – berechnet über gewichtete Cosine-Similarity.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
-          <article class="feature-card">
-            <div class="feature-badge">🎯</div>
-            <h3>Use-Case-Einstieg</h3>
-            <p>Chips wie Fleet Management, Insurance oder Roadside Assistance filtern auf die relevanten Daten – ohne Fachbegriffe.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/oem-pakete.png" data-title="OEM-Pakete" aria-label="OEM-Pakete – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+                <h3>OEM-Pakete</h3>
+                <p>Vorgebündelte, markenspezifische Datenpakete. Ein Klick fügt das ganze Paket zum Warenkorb hinzu.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
-          <article class="feature-card">
-            <div class="feature-badge">🛒</div>
-            <h3>Request-Liste &amp; Teams</h3>
-            <p>Ausgewählte Datenpunkte sammeln, als Abo-Anfrage senden und im Team über geteilte Group Carts zusammenstellen.</p>
+          <article class="feature-card" role="button" tabindex="0" aria-pressed="false" data-shot="ressources/prototype/warenkorb.png" data-title="Warenkorb &amp; Teams" aria-label="Warenkorb und Teams – Karte umdrehen für Prototyp-Ansicht">
+            <div class="feature-inner">
+              <div class="feature-front">
+                <div class="feature-badge"><svg viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div>
+                <h3>Warenkorb &amp; Teams</h3>
+                <p>Ausgewählte Datenpunkte sammeln, als Abo-Anfrage senden und im Team über geteilte Group Carts zusammenstellen.</p>
+                <span class="feature-cta"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Im Prototyp ansehen</span>
+              </div>
+              <div class="feature-back">
+                <div class="feature-shot"></div>
+                <span class="feature-cta back-cta"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Zurück</span>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -164,7 +259,7 @@
           <div class="app-body">
             <!-- Search + Ask-CARUSO -->
             <div class="app-search">
-              <span class="app-search-ico">🔎</span>
+              <span class="app-search-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
               <span class="app-search-q">how much fuel</span>
               <span class="app-search-btn">Suchen</span>
             </div>
@@ -204,9 +299,9 @@
 
             <!-- Explore tabs -->
             <div class="explore-tabs">
-              <span class="exp-tab is-active">🚗 3D Vehicle</span>
-              <span class="exp-tab">⌥ Graph</span>
-              <span class="exp-tab">📦 OEM Packages</span>
+              <span class="exp-tab is-active"><svg viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>3D Vehicle</span>
+              <span class="exp-tab"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Graph</span>
+              <span class="exp-tab"><svg viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>OEM Packages</span>
             </div>
 
             <!-- Data table -->
@@ -216,11 +311,11 @@
                   <tr><th>Datenpunkt</th><th>Kategorie</th><th>Typ</th><th>Verfügbarkeit</th><th></th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>Total Mileage</td><td>Powertrain</td><td>Measurement</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
-                  <tr><td>Fuel Level</td><td>Electronics</td><td>Measurement</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
-                  <tr><td>Battery State of Charge</td><td>Battery</td><td>Status</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
-                  <tr><td>Tire Pressure (Front&nbsp;Left)</td><td>Chassis</td><td>Sensor</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
-                  <tr><td>Indicator Light – Low Fuel</td><td>Safety</td><td>Event</td><td><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Total Mileage<span class="dp-key">odometerValue</span></td><td>Powertrain</td><td>Measurement</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Fuel Level<span class="dp-key">fuelLevelPercent</span></td><td>Electronics</td><td>Measurement</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Battery State of Charge<span class="dp-key">hvBatterySoc</span></td><td>Battery</td><td>Status</td><td><span class="b2 b2b">B2B</span><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Tire Pressure (Front&nbsp;Left)<span class="dp-key">tirePressureFl</span></td><td>Chassis</td><td>Sensor</td><td><span class="b2 b2b">B2B</span></td><td><span class="row-add">+</span></td></tr>
+                  <tr><td>Indicator Light – Low Fuel<span class="dp-key">indicatorLowFuel</span></td><td>Safety</td><td>Event</td><td><span class="b2 b2c">B2C</span></td><td><span class="row-add">+</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -252,12 +347,6 @@
             <p>Transparente OEM-Verfügbarkeit (B2B/B2C) und 34+ Marken auf einen Blick erkennbar.</p>
           </div>
         </div>
-
-        <div class="metric-band">
-          <div class="metric"><strong>&lt; 30s</strong><span>bis zur Zielinformation</span></div>
-          <div class="metric"><strong>≥ 80%</strong><span>verstehen jeden Datenpunkt</span></div>
-          <div class="metric"><strong>≥ 40%</strong><span>weniger Interaktionen</span></div>
-        </div>
       </div>
     </section>
 
@@ -288,12 +377,12 @@
         <h2 class="section-title">Team StackOverfly</h2>
         <p class="section-lead">Ein motiviertes Team aus Entwicklung, Konzeption und Design.</p>
         <div class="team-grid">
-          <article class="team-card"><div class="avatar">CE</div><h3>Christian Eisele</h3><p>Development</p></article>
-          <article class="team-card"><div class="avatar">HC</div><h3>Hevin Coskun</h3><p>Development</p></article>
-          <article class="team-card"><div class="avatar">JF</div><h3>Jakob Feuerstein</h3><p>Development</p></article>
-          <article class="team-card"><div class="avatar">MMV</div><h3>Matias Mas Viehl</h3><p>Development</p></article>
-          <article class="team-card"><div class="avatar">SÖ</div><h3>Sidal Özdurmus</h3><p>Design</p></article>
-          <article class="team-card"><div class="avatar">JFF</div><h3>Johanna Frieda Feix</h3><p>Design</p></article>
+          <article class="team-card"><div class="avatar">CE</div><h3>Christian Eisele</h3><span class="role">Development</span></article>
+          <article class="team-card"><div class="avatar">HC</div><h3>Hevin Coskun</h3><span class="role">Development</span></article>
+          <article class="team-card"><div class="avatar">JF</div><h3>Jakob Feuerstein</h3><span class="role">Development</span></article>
+          <article class="team-card"><div class="avatar">MMV</div><h3>Matias Mas Viehl</h3><span class="role">Development</span></article>
+          <article class="team-card"><div class="avatar">SÖ</div><h3>Sidal Özdurmus</h3><span class="role design">Design</span></article>
+          <article class="team-card"><div class="avatar">JFF</div><h3>Johanna Frieda Feix</h3><span class="role design">Design</span></article>
         </div>
       </div>
     </section>
@@ -310,9 +399,29 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <img src="ressources/stackoverfly_logo_gross.png" alt="StackOverfly Logo" class="footer-logo">
-      <p>&copy; 2026 StackOverfly · CARUSO Data Catalog Redesign · All rights reserved.</p>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="ressources/stackoverfly_logo_gross.png" alt="StackOverfly Logo" class="footer-logo">
+        <p>Connected-Car-Daten, endlich verständlich. Unser Redesign des CARUSO&nbsp;Data&nbsp;Catalog – von der flachen Tabelle zur geführten Discovery-Plattform.</p>
+      </div>
+      <nav class="footer-col" aria-label="Footer-Navigation">
+        <h4>Navigation</h4>
+        <a href="#problem">Problem</a>
+        <a href="#features">Lösung</a>
+        <a href="#preview">Einblick</a>
+        <a href="#how">Ansatz</a>
+        <a href="#tech">Technik</a>
+        <a href="#team">Team</a>
+      </nav>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <a href="mailto:StackOverFly@web.de">StackOverFly@web.de</a>
+        <a href="https://www.stackoverfly.de">www.stackoverfly.de</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>&copy; 2026 StackOverfly · CARUSO Data Catalog Redesign</span>
+      <span>Studienprojekt · Software-Engineering</span>
     </div>
   </footer>
 
