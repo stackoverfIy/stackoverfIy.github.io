@@ -155,75 +155,20 @@
     }
   }
 
-  /* ---------- Feature-Cards (Flip) + Prototyp-Showcase ---------- */
-  const featureCards = document.querySelectorAll('.feature-card');
-
-  // Erklärtexte für den großen „Im Prototyp"-Showcase
-  const SHOWCASE_DESC = {
-    'use-case': 'Der Einstieg über Anwendungsfälle: Chips wie Fleet Management, Insurance oder Roadside Assistance zeigen direkt die passenden Datenpunkte – ganz ohne Fachbegriffe. Dazu B2B/B2C und Hersteller-Filter.',
-    'ask-caruso': 'KI-gestützte semantische Suche, direkt in der Suchleiste. Auch umgangssprachliche Fragen wie „how much fuel" finden verwandte Datenpunkte – mit kurzer Begründung, warum sie passen.',
-    '3d-fahrzeug': 'Browse nach Fahrzeugbereich: Eine Zone am 3D-Modell wählen (Body, Powertrain, Battery, Chassis …) filtert die Datentabelle sofort auf diesen Teil des Fahrzeugs.',
-    'beziehungsgraph': 'Ein kraftbasierter Graph zeigt, welche Signale zusammengehören – z. B. rund um „Charging Plug Status" – berechnet über gewichtete Cosine-Similarity.',
-    'oem-pakete': 'Vorgebündelte, markenspezifische Datenpakete: 10 OEMs, 58 Pakete. Eine Marke wählen, das passende Paket sehen – ein Klick legt es komplett in den Warenkorb.',
-    'warenkorb': 'Ausgewählte Datenpunkte sammeln, als Abo-Anfrage senden und im Team über geteilte Group Carts gemeinsam zusammenstellen.'
-  };
-  const slugOf = (card) => (card.dataset.shot || '').split('/').pop().replace(/\.png$/i, '');
-  const registry = {};
-
-  const placeholder = (slug, icon, shot) =>
-    `<div class="ph"><span class="ph-ico">${icon}</span><strong>Screenshot folgt</strong>` +
-    `<small>Lege die Datei als <code>${shot}</code> ab – sie erscheint dann automatisch hier.</small></div>`;
-
-  // Bild in ein Ziel laden, bei Fehlen Platzhalter
-  const loadShot = (target, shot, alt, icon) => {
-    if (!target) return;
-    const img = new Image();
-    img.alt = alt;
-    img.onload = () => { target.innerHTML = ''; target.appendChild(img); };
-    img.onerror = () => { target.innerHTML = placeholder('', icon, shot); };
-    img.src = shot;
-  };
-
-  // ----- Showcase -----
-  const scShot = document.getElementById('showcaseShot');
-  const scTitle = document.getElementById('showcaseTitle');
-  const scDesc = document.getElementById('showcaseDesc');
-  const scTabs = [...document.querySelectorAll('.sc-tab')];
-  const showcase = document.getElementById('showcase');
-
-  const renderShowcase = (slug) => {
-    const r = registry[slug];
-    if (!r || !scShot) return;
-    if (scTitle) scTitle.innerHTML = r.title;
-    if (scDesc) scDesc.textContent = SHOWCASE_DESC[slug] || '';
-    scTabs.forEach(t => t.classList.toggle('is-active', t.dataset.slug === slug));
-    loadShot(scShot, r.shot, 'Prototyp-Screenshot: ' + r.title, r.icon);
-  };
-  const openShowcase = (slug) => {
-    renderShowcase(slug);
-    const sec = document.getElementById('preview');
-    if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (showcase) { showcase.classList.remove('flash'); void showcase.offsetWidth; showcase.classList.add('flash'); }
-  };
-  scTabs.forEach(t => t.addEventListener('click', () => renderShowcase(t.dataset.slug)));
-
-  // ----- Cards: Klick schickt runter zum Showcase (kein Umdrehen) -----
-  featureCards.forEach(card => {
-    const shot = card.dataset.shot || '';
-    const title = (card.dataset.title || 'Feature').replace(/&amp;/g, '&');
-    const slug = slugOf(card);
-    const icon = card.querySelector('.feature-badge svg')?.outerHTML || '';
-    card.dataset.slug = slug;
-    registry[slug] = { title, shot, icon };
-
-    card.addEventListener('click', () => openShowcase(slug));
+  /* ---------- Lösung-Karten → runter zum passenden Prototyp-Schritt ---------- */
+  document.querySelectorAll('.feature-card').forEach(card => {
+    const slug = (card.dataset.shot || '').split('/').pop().replace(/\.png$/i, '');
+    const target = document.getElementById('proto-' + slug);
+    const go = () => {
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.classList.remove('flash'); void target.offsetWidth; target.classList.add('flash');
+    };
+    card.addEventListener('click', go);
     card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openShowcase(slug); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
     });
   });
-
-  // Showcase initial füllen (Standard: Use-Case)
-  if (scShot) renderShowcase('use-case');
 
   /* ---------- Karten "schauen" zur Maus — gruppenweit (wie caruso-dataplace.com) ---------- */
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;

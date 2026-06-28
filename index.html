@@ -199,32 +199,99 @@
         <h2 class="section-title">So sieht der Data Catalog aus.</h2>
         <p class="section-lead">
           Sechs komplementäre Einstiege in über 433 Datenpunkte – hier die echten Screenshots aus dem
-          Prototyp, jeweils kurz erklärt. Wähle eine Ansicht:
+          Prototyp, einer nach dem anderen, jeweils kurz erklärt.
         </p>
 
-        <div class="showcase" id="showcase">
-          <div class="showcase-tabs" role="tablist" aria-label="Prototyp-Ansichten">
-            <button class="sc-tab is-active" type="button" data-slug="use-case">Use-Case-Einstieg</button>
-            <button class="sc-tab" type="button" data-slug="ask-caruso">Ask-CARUSO</button>
-            <button class="sc-tab" type="button" data-slug="3d-fahrzeug">3D-Fahrzeug</button>
-            <button class="sc-tab" type="button" data-slug="beziehungsgraph">Beziehungsgraph</button>
-            <button class="sc-tab" type="button" data-slug="oem-pakete">OEM-Pakete</button>
-            <button class="sc-tab" type="button" data-slug="warenkorb">Warenkorb &amp; Teams</button>
-          </div>
-          <div class="showcase-body">
-            <div class="app-window showcase-frame">
-              <div class="app-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="app-url">catalog.caruso-dataplace.com</span>
+        <div class="proto-steps">
+          <article class="proto-step" id="proto-use-case">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/use-case.png" alt="Prototyp: Use-Case-Einstieg" loading="lazy"></div>
               </div>
-              <div class="showcase-shot" id="showcaseShot"><!-- per JS gefüllt --></div>
             </div>
-            <aside class="showcase-info">
-              <span class="showcase-eyebrow">Im Prototyp</span>
-              <h3 id="showcaseTitle">Use-Case-Einstieg</h3>
-              <p id="showcaseDesc"></p>
-            </aside>
-          </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>01</b> Use-Case-Einstieg</span>
+              <h3>Use-Case-Einstieg</h3>
+              <p>Der Einstieg über Anwendungsfälle: Chips wie Fleet Management, Insurance oder Roadside Assistance zeigen direkt die passenden Datenpunkte – ganz ohne Fachbegriffe. Dazu B2B/B2C und Hersteller-Filter.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
+
+          <article class="proto-step" id="proto-ask-caruso">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/ask-caruso.png" alt="Prototyp: Ask-CARUSO" loading="lazy"></div>
+              </div>
+            </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>02</b> Ask-CARUSO</span>
+              <h3>Ask-CARUSO</h3>
+              <p>KI-gestützte semantische Suche, direkt in der Suchleiste. Auch umgangssprachliche Begriffe wie „kilometer" finden verwandte Datenpunkte – etwa <em>mileage</em> oder <em>odometer</em> – mit kurzer Begründung.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
+
+          <article class="proto-step" id="proto-3d-fahrzeug">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/3d-fahrzeug.png" alt="Prototyp: 3D-Fahrzeug" loading="lazy"></div>
+              </div>
+            </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>03</b> 3D-Fahrzeug</span>
+              <h3>3D-Fahrzeug</h3>
+              <p>Browse nach Fahrzeugbereich: Eine Zone am 3D-Modell wählen (Body, Powertrain, Battery, Chassis …) filtert die Datentabelle sofort auf diesen Teil des Fahrzeugs.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
+
+          <article class="proto-step" id="proto-beziehungsgraph">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/beziehungsgraph.png" alt="Prototyp: Beziehungsgraph" loading="lazy"></div>
+              </div>
+            </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>04</b> Beziehungsgraph</span>
+              <h3>Beziehungsgraph</h3>
+              <p>Ein kraftbasierter Graph zeigt, welche Signale zusammengehören – z. B. rund um „Charging Plug Status" – berechnet über gewichtete Cosine-Similarity.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
+
+          <article class="proto-step" id="proto-oem-pakete">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/oem-pakete.png" alt="Prototyp: OEM-Pakete" loading="lazy"></div>
+              </div>
+            </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>05</b> OEM-Pakete</span>
+              <h3>OEM-Pakete</h3>
+              <p>Vorgebündelte, markenspezifische Datenpakete: 10 OEMs, 58 Pakete. Eine Marke wählen, das passende Paket sehen – ein Klick legt es komplett in den Warenkorb.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
+
+          <article class="proto-step" id="proto-warenkorb">
+            <div class="proto-media">
+              <div class="app-window">
+                <div class="app-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="app-url">catalog.caruso-dataplace.com</span></div>
+                <div class="proto-shot"><img src="ressources/prototype/warenkorb.png" alt="Prototyp: Warenkorb & Teams" loading="lazy"></div>
+              </div>
+            </div>
+            <div class="proto-text">
+              <span class="proto-eyebrow"><b>06</b> Warenkorb &amp; Teams</span>
+              <h3>Warenkorb &amp; Teams</h3>
+              <p>Ausgewählte Datenpunkte sammeln, als Abo-Anfrage senden und im Team über geteilte Group Carts gemeinsam zusammenstellen.</p>
+              <a class="proto-back" href="#features"><svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Zurück zu den Lösungen</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
