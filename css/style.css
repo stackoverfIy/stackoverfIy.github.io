@@ -169,6 +169,11 @@ code, .mono { font-family: var(--mono); }
   border: 1px solid rgba(127, 212, 194, .35); padding: .4rem .9rem; border-radius: var(--r-pill);
   margin-bottom: 1.5rem; background: rgba(127, 212, 194, .08);
 }
+.eyebrow-link {
+  color: #fff; text-decoration: underline; text-decoration-color: rgba(127, 212, 194, .5);
+  text-underline-offset: 2px; transition: text-decoration-color .2s var(--ease), color .2s var(--ease);
+}
+.eyebrow-link:hover { color: var(--green-bright); text-decoration-color: var(--green-bright); }
 .hero h1 {
   font-size: clamp(2.4rem, 6vw, 4.6rem); font-weight: 800; line-height: 1.05;
   letter-spacing: -.02em; margin-bottom: 1.4rem;
