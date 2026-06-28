@@ -403,7 +403,9 @@ code, .mono { font-family: var(--mono); }
 /* TEAM */
 .team-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-  max-width: 980px;
+  max-width: 980px; margin-inline: auto;
+  padding: 2.2rem; background: var(--bg-soft);
+  border: 1px solid var(--border-soft); border-radius: calc(var(--r-card) + 8px);
 }
 .team-card {
   background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-card);
@@ -566,6 +568,7 @@ code, .mono { font-family: var(--mono); }
 }
 @media (max-width: 520px) {
   .problem-grid, .feature-grid, .goal-grid, .tech-grid, .team-grid, .cap-grid { grid-template-columns: 1fr; }
+  .team-grid { padding: 1.3rem; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .btn { width: 100%; }
 }
