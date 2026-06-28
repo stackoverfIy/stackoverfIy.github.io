@@ -2,6 +2,13 @@
 (function () {
   'use strict';
 
+  /* ---------- Beim Neuladen oben starten, damit alle Animationen wieder sichtbar abspielen ---------- */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  // Ohne Anker (#...) immer an den Seitenanfang – sonst Sprung zum Anker beibehalten
+  if (!location.hash) {
+    window.addEventListener('load', () => window.scrollTo(0, 0));
+  }
+
   /* ---------- Navbar shadow · Scroll-Progress · Scroll-Spy ---------- */
   const navbar = document.getElementById('navbar');
   const progress = document.getElementById('scrollProgress');
