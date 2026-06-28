@@ -119,11 +119,6 @@ code, .mono { font-family: var(--mono); }
 .nav-links .nav-cta:hover { background: var(--green-600); color: #fff; }
 
 /* ===== SCROLL-PROGRESS ===== */
-.scroll-progress {
-  position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 1100;
-  background: linear-gradient(90deg, var(--green), var(--green-bright));
-  transition: width .1s linear;
-}
 
 .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
 .nav-toggle span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: .3s; }

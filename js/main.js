@@ -9,9 +9,8 @@
     window.addEventListener('load', () => window.scrollTo(0, 0));
   }
 
-  /* ---------- Navbar shadow · Scroll-Progress · Scroll-Spy ---------- */
+  /* ---------- Navbar shadow · Scroll-Spy ---------- */
   const navbar = document.getElementById('navbar');
-  const progress = document.getElementById('scrollProgress');
   const spyTargets = Array.from(document.querySelectorAll('#navLinks a[href^="#"]'))
     .map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) }))
     .filter(o => o.sec);
@@ -19,11 +18,6 @@
   const onScroll = () => {
     const y = window.scrollY;
     navbar.classList.toggle('scrolled', y > 20);
-
-    if (progress) {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-    }
 
     let current = null;
     for (const o of spyTargets) {
