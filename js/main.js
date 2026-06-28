@@ -207,7 +207,7 @@
   };
   scTabs.forEach(t => t.addEventListener('click', () => renderShowcase(t.dataset.slug)));
 
-  // ----- Cards -----
+  // ----- Cards: Klick schickt runter zum Showcase (kein Umdrehen) -----
   featureCards.forEach(card => {
     const shot = card.dataset.shot || '';
     const title = (card.dataset.title || 'Feature').replace(/&amp;/g, '&');
@@ -216,20 +216,9 @@
     card.dataset.slug = slug;
     registry[slug] = { title, shot, icon };
 
-    loadShot(card.querySelector('.feature-shot'), shot, 'Prototyp-Ansicht: ' + title, icon);
-
-    const flip = () => {
-      const flipped = card.classList.toggle('flipped');
-      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
-    };
-    card.addEventListener('click', (e) => {
-      // „Groß ansehen" / Klick aufs Bild → runter zum Showcase, nicht zurückdrehen
-      if (e.target.closest('[data-zoom]')) { openShowcase(slug); return; }
-      flip();
-    });
+    card.addEventListener('click', () => openShowcase(slug));
     card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
-      if (e.key === 'Escape' && card.classList.contains('flipped')) { card.classList.remove('flipped'); card.setAttribute('aria-pressed', 'false'); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openShowcase(slug); }
     });
   });
 
